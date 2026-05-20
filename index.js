@@ -23,10 +23,17 @@ async function run() {
     await client.connect();
     const database = client.db("ArenaFLow");
     const facilities = database.collection("facilities");
+    const bookings = database.collection("bookings");
 
     app.post('/facilities', async(req, res)=>{
         const data = req.body
         const result = await facilities.insertOne(data)
+        res.send(result);
+        
+    })
+    app.post('/bookings', async(req, res)=>{
+        const data = req.body
+        const result = await bookings.insertOne(data)
         res.send(result);
         
     })
