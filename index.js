@@ -42,6 +42,15 @@ async function run() {
       const result = await facilities.find().toArray()
       res.send(result)
     })
+    app.get('/bookings', async(req, res)=>{
+      const result = await bookings.find().toArray()
+      res.send(result)
+    })
+    app.get('/bookings/:userId', async(req, res)=>{
+      const id = req.params.userId
+      const result = await bookings.find({userId:id}).toArray()
+      res.send(result)
+    })
     app.get('/facility/:id', async(req, res)=>{
       const id= req.params.id
       const query = {
@@ -52,6 +61,11 @@ async function run() {
     })
     app.get('/FeaturedFacilities', async(req, res)=>{
       const result = await facilities.find().limit(6).toArray()
+      res.send(result)
+    })
+    app.delete('/bookings/:bookingId', async(req, res)=>{
+      const id = req.params.bookingId
+      const result = await bookings.deleteOne({_id: new ObjectId(id)})
       res.send(result)
     })
 
