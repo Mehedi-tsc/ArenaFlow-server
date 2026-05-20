@@ -78,8 +78,8 @@ async function run() {
       res.send(result)
     })
     app.delete('/facilities/:facilitiesId', async(req, res)=>{
-      const id = req.params.bookingId
-      const result = await bookings.deleteOne({_id: new ObjectId(id)})
+      const id = req.params.facilitiesId
+      const result = await facilities.deleteOne({_id: new ObjectId(id)})
       res.send(result)
     })
 
