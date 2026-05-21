@@ -39,12 +39,22 @@ async function run() {
     })
 
     app.get('/facilities', async(req, res)=>{
-      const {search} = req.query
+      const {search, filter} = req.query
       let cursor;
       if(search){
         cursor = facilities.find({
           facilityName: {
             $regex: search,
+            $options: 'i',
+          }
+        });
+      }else{
+        cursor = facilities.find();
+      }
+      if(filter){
+        cursor = facilities.find({
+          facilityType: {
+            $regex: filter,
             $options: 'i',
           }
         });
