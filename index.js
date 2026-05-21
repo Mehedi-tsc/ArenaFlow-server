@@ -82,6 +82,19 @@ async function run() {
       const result = await facilities.deleteOne({_id: new ObjectId(id)})
       res.send(result)
     })
+    app.patch('/facilities/:id', async(req, res)=>{
+      const id = req.params.id
+      const Document = req.body
+      const updateDocument ={
+        $set: Document
+      }
+      const query = {
+        _id: new ObjectId(id)
+      }
+      const result = await facilities.updateOne(query, updateDocument)
+      res.send(result)
+
+    })
 
 
 
