@@ -39,7 +39,19 @@ async function run() {
     })
 
     app.get('/facilities', async(req, res)=>{
-      const result = await facilities.find().toArray()
+      const {search} = req.query
+      let cursor;
+      if(search){
+        cursor = facilities.find({
+          facilityName: {
+            $regex: search,
+            $options: 'i',
+          }
+        });
+      }else{
+        cursor = facilities.find();
+      }
+      const result = await cursor.toArray()
       res.send(result)
     })
     app.get('/bookings', async(req, res)=>{
